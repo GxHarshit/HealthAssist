@@ -1,8 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useContext } from 'react';
 import { Activity } from "lucide-react";
 import { Link } from "react-router-dom";
+import { UserContext } from '../context/user.context';
+
 
 const NavBar = () => {
+  const { user, logout } = useContext(UserContext);
+  console.log(user)
   const [scrolled, setScrolled] = useState(false);
   
   useEffect(() => {
@@ -52,14 +56,22 @@ const NavBar = () => {
           </a>
         </nav>
         
-        <div className="flex items-center gap-3">
-          <Link to="/login" className="hidden md:flex items-center justify-center rounded-full px-6 py-2 text-sm font-medium border border-health-200 hover:border-health-300 transition-colors">
-            Sign In
-          </Link>
-          <Link to="/register" className="flex items-center justify-center rounded-full bg-blue-600 px-6 py-2 text-sm font-medium text-white hover:bg-health-700 transition-colors">
-            Get Started
-          </Link>
-        </div>
+        {user ? (
+  <div className="flex items-center gap-3">
+    <Link to="/profile" className="flex items-center justify-center rounded-full bg-blue-600 px-6 py-2 text-sm font-medium text-white hover:bg-health-700 transition-colors">
+      Profile
+    </Link>
+  </div>
+) : (
+  <div className="flex items-center gap-3">
+    <Link to="/login" className="hidden md:flex items-center justify-center rounded-full px-6 py-2 text-sm font-medium border border-health-200 hover:border-health-300 transition-colors">
+      Sign In
+    </Link>
+    <Link to="/register" className="flex items-center justify-center rounded-full bg-blue-600 px-6 py-2 text-sm font-medium text-white hover:bg-health-700 transition-colors">
+      Get Started
+    </Link>
+  </div>
+)}
       </div>
     </header>
   );

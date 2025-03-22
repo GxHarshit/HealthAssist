@@ -110,6 +110,7 @@ const Register = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(formSchema),
@@ -136,6 +137,7 @@ const Register = () => {
       localStorage.setItem("token", response.data.token);
   
       // Set user state (if you have a context or state for user)
+      
       setUser(response.data.user);
         navigate("/");
       } catch (err) {
